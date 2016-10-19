@@ -77,6 +77,8 @@ values."
               :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
 
+     spacemacs-editing
+
      ;; 自定义的layers
      which-function
      )

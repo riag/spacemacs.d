@@ -23,33 +23,86 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-      auto-completion
-      better-defaults
-      emacs-lisp
-      git
-      markdown
-      org
-      vinegar
-      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
-     ;;(ranger :variables
-      ;; ranger-show-preview t)
-      (chinese :variables
-               chinese-enable-youdao-dict t)
-      evil-cleverparens
-      ;;smex
+     helm
+     ivy
+     better-defaults
+     github
+     ranger
+     colors
+     prodigy
+     search-engine
+     graphviz
+     (syntax-checking :variables syntax-checking-enable-by-default nil
+                      syntax-checking-enable-tooltips nil)
+     (spell-checking :variables spell-checking-enable-by-default nil)
+     (vinegar :variables vinegar-reuse-dired-buffer t)
+     (spacemacs-layouts :variables layouts-enable-autosave nil
+                        layouts-autosave-delay 300)
+     (git :variables
+          git-magit-status-fullscreen t
+          magit-push-always-verify nil
+          magit-save-repository-buffers 'dontask
+          magit-revert-buffers 'silent
+          magit-refs-show-commit-count 'all
+          magit-revision-show-gravatars nil)
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     (auto-completion :variables auto-completion-enable-sort-by-usage t
+                      :disabled-for org markdown)
+     (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English")
+     restclient
+     ;;(gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
+     (shell :variables shell-default-shell 'eshell)
+     docker
+     latex
+     deft
+     markdown
+     org
+     shaders
+     yaml
+     react
+     (python :variables
+             python-test-runner '(nose pytest))
+     lua
+     html
+     javascript
+     (typescript :variables
+                 typescript-fmt-on-save nil
+                 typescript-fmt-tool 'typescript-formatter)
+     emacs-lisp
+     ;;(clojure :variables clojure-enable-fancify-symbols t)
+     racket
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode)
+     (chinese :packages youdao-dictionary fcitx
+              :variables chinese-enable-fcitx nil
+              chinese-enable-youdao-dict t)
+
+     ;; 自定义的layers
+     which-function
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(sicp hl-anything)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages 
+   '(counsel-projectile magit-gh-pulls magit-gitflow org-projectile evil-mc
+                        evil-args evil-ediff evil-exchange evil-unimpaired
+                        evil-indent-plus volatile-highlights
+                        spaceline holy-mode skewer-mode rainbow-delimiters
+                        highlight-indentation vi-tilde-fringe eyebrowse
+                        org-bullets smooth-scrolling org-repo-todo org-download org-timer
+                        livid-mode git-gutter git-gutter-fringe  evil-escape
+                        leuven-theme gh-md evil-lisp-state spray lorem-ipsum
+                        ac-ispell ace-jump-mode auto-complete auto-dictionary
+                        clang-format define-word google-translate disaster epic
+                        fancy-battery neotree org-present orgit orglue spacemacs-theme
+                        helm-flyspell flyspell-correct-helm clean-aindent-mode
+                        helm-c-yasnippet ace-jump-helm-line helm-make
+                        helm-themes helm-swoop helm-spacemacs-help smeargle
+                        ido-vertical-mode flx-ido company-quickhelp)
+   dotspacemacs-install-packages 'used-only
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -102,19 +155,13 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
-                         monokai
-                         zenburn)
+   dotspacemacs-themes '(solarized-dark solarized-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 16
+                               :size 16 
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -247,10 +294,20 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-    (setq configuration-layer--elpa-archives
-    '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
-      ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-      ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+
+    (setq configuration-layer--elpa-archives 
+          '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/") 
+            ("org-cn" . "http://elpa.zilongshanren.com/org/") 
+            ("gnu-cn" . "http://elpa.zilongshanren.com/gnu/")))
+
+    ;; https://github.com/syl20bnr/spacemacs/issues/2705
+    ;; (setq tramp-mode nil)
+    (setq tramp-ssh-controlmaster-options
+          "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+
+    (setq evil-shift-round nil)
+    (setq byte-compile-warnings '(not obsolete))
+    (setq warning-minimum-level :error)
   )
 
 (defun dotspacemacs/user-config ()
@@ -260,22 +317,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;;解决org表格里面中英文对齐的问题
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-mac) window-system)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (xterm-color shell-pop multi-term eshell-prompt-extras esh-help smex evil-cleverparens paredit youdao-dictionary names chinese-word-at-point pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict ace-pinyin pinyinlib ace-jump-mode toc-org smeargle orgit org-repo-todo org-present org-pomodoro alert log4e gntp org-plus-contrib org-bullets mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md evil-magit magit magit-popup git-commit with-editor company-statistics company-quickhelp pos-tip company auto-yasnippet yasnippet ac-ispell auto-complete ranger ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline s powerline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox hydra spinner page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-args evil-anzu anzu eval-sexp-fu highlight elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build use-package which-key bind-key bind-map evil spacemacs-theme))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))

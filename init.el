@@ -79,6 +79,13 @@ values."
 
      spacemacs-editing
 
+     ;; vim 
+     evil-cleverparens
+     evil-commentary
+     vim-empty-lines
+     vim-powerline
+     vinegar
+
      ;; 自定义的layers
      which-function
      )
@@ -324,6 +331,9 @@ you should place your code here."
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+
+  (spacemacs/toggle-evil-cleverparens-on)
+
 
   )
 

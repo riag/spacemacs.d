@@ -334,6 +334,7 @@ you should place your code here."
 
   (spacemacs/toggle-evil-cleverparens-on)
 
+  (global-aggressive-indent-mode 1)
 
   )
 

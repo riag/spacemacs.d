@@ -62,6 +62,15 @@ Each entry is either:
 ;; 见 https://github.com/dacap/keyfreq
 (defun keyfreq/init-keyfreq()
 
+  ;; 忽略一些常用的命令
+  ;; 如 下一行，上一行等操作
+  (setq keyfreq-excluded-commands
+        '(self-insert-command
+          evil-next-line
+          evil-previous-line
+          evil-force-normal-state
+          ))
+
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1)
   )

@@ -336,6 +336,21 @@ you should place your code here."
 
   (global-aggressive-indent-mode 1)
 
+  ;; 把光标下的数字自增或自减
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+
+  ;; 显示文件信息
+  (define-key evil-normal-state-map (kbd "C-g") 'evil-show-file-info)
+
+  (define-key evil-normal-state-map (kbd "C-q") 'evil-visual-block)
+
+  ;; 上下移动选中的文字
+  (define-key evil-visual-state-map (kbd "C-j")
+    (concat ":m '>+1" (kbd "RET") "gv=gv"))
+  (define-key evil-visual-state-map (kbd "C-k")
+    (concat ":m '<-2" (kbd "RET") "gv=gv"))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

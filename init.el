@@ -351,6 +351,9 @@ you should place your code here."
   (define-key evil-visual-state-map (kbd "C-k")
     (concat ":m '<-2" (kbd "RET") "gv=gv"))
 
+  ;; 补全文件路径
+  (define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

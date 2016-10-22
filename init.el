@@ -77,6 +77,7 @@ values."
               :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
 
+     smex
      spacemacs-editing
 
      ;; vim 
@@ -88,6 +89,7 @@ values."
 
      ;; 自定义的layers
      which-function
+     ;;keyfreq
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -304,19 +306,19 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
-    (setq configuration-layer--elpa-archives 
-          '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/") 
-            ("org-cn" . "http://elpa.zilongshanren.com/org/") 
-            ("gnu-cn" . "http://elpa.zilongshanren.com/gnu/")))
+  (setq configuration-layer--elpa-archives 
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/") 
+          ("org-cn" . "http://elpa.zilongshanren.com/org/") 
+          ("gnu-cn" . "http://elpa.zilongshanren.com/gnu/")))
 
-    ;; https://github.com/syl20bnr/spacemacs/issues/2705
-    ;; (setq tramp-mode nil)
-    (setq tramp-ssh-controlmaster-options
-          "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  ;; https://github.com/syl20bnr/spacemacs/issues/2705
+  ;; (setq tramp-mode nil)
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
-    (setq evil-shift-round nil)
-    (setq byte-compile-warnings '(not obsolete))
-    (setq warning-minimum-level :error)
+  (setq evil-shift-round nil)
+  (setq byte-compile-warnings '(not obsolete))
+  (setq warning-minimum-level :error)
   )
 
 (defun dotspacemacs/user-config ()
@@ -353,6 +355,10 @@ you should place your code here."
 
   ;; 补全文件路径
   (define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+
+  ;; fix smex
+  (spacemacs/set-leader-keys ":" 'spacemacs/smex)
+  (spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
 
   )
 

@@ -359,6 +359,7 @@ you should place your code here."
   ;; fix smex
   (spacemacs/set-leader-keys ":" 'spacemacs/smex)
   (spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
+  (global-set-key (kbd "M-x") 'execute-extended-command)
 
   )
 

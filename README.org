@@ -1,0 +1,25 @@
+* 我的配置
+前几年我一直使用 vim，是因为 vim 的操作很高效。spacemacs 让 Emacs 也拥有 vim 的高效按键， 同时 Emacs 的插件开发语言 Lisp 以及 Emacs 的帮助系统比较吸引我，目前我主要使用 Emacs。
+这份配置主要是让 spacemacs 更符合 vim 操作习惯以及我个人的使用习惯。 这份配置也参考了 [[https://github.com/zilongshanren/spacemacs-private][zilongshanren/spacemacs-private]]
+
+
+** Windows 平台安装 Emacs方法
+使用 https://sourceforge.net/projects/emacsbinw64/files/release/ 上面的 Emacs 最新版本
+
+** 使用方法
+
+#+BEGIN_SRC sh
+  # 使用 spacemacs 稳定版或开发版
+  # git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d 
+  git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d -b develop
+
+  # 我的配置
+  git clone https://github.com/riag/spacemacs.d.git ~/.spacemacs.d/
+#+END_SRC
+
+** 安装 SourceCodePro 字体
+下载地址：https://github.com/adobe-fonts/source-code-pro/releases
+
+
+** 安装代码搜索工具
+建议安装 [[https://github.com/ggreer/the_silver_searcher][ag]] 或 [[https://github.com/monochromegane/the_platinum_searcher][pt]] 这2个代码搜索工具, spacemacs 都支持这2个工具

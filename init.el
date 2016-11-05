@@ -77,7 +77,7 @@ values."
               :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
 
-     smex
+     ;; smex
      spacemacs-editing
 
      ;; vim 
@@ -357,9 +357,9 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
 
   ;; fix smex
-  (spacemacs/set-leader-keys ":" 'spacemacs/smex)
-  (spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
-  (global-set-key (kbd "M-x") 'execute-extended-command)
+  ;; (spacemacs/set-leader-keys ":" 'spacemacs/smex)
+  ;; (spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
+  ;; (global-set-key (kbd "M-x") 'execute-extended-command)
 
   )
 

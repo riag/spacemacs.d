@@ -56,7 +56,7 @@ values."
      latex
      deft
      markdown
-     org
+     (org :variables org-enable-github-support t)
      shaders
      yaml
      react
@@ -355,6 +355,12 @@ you should place your code here."
 
   ;; 补全文件路径
   (define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+
+  ;; org-mode 
+  (setq org-startup-indented t)
+
+  ;; modeline
+  (display-time-mode t)
 
   ;; fix smex
   ;; (spacemacs/set-leader-keys ":" 'spacemacs/smex)

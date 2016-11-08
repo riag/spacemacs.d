@@ -316,45 +316,59 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
+  ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
   (setq warning-minimum-level :error)
   )
 
+(defun dotspacemacs/open-directory-in-external-app ()
+  "Open current file in external application.
+If the universal prefix argument is used then open the folder
+containing the current file by the default explorer."
+  (interactive)
+  (spacemacs//open-in-external-app (expand-file-name default-directory))
+  )
+
 (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
+"Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;;解决org表格里面中英文对齐的问题
-  (when (configuration-layer/layer-usedp 'chinese)
-    (when (and (spacemacs/system-is-mac) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+;;解决org表格里面中英文对齐的问题
+(when (configuration-layer/layer-usedp 'chinese)
+  (when (and (spacemacs/system-is-mac) window-system)
+    (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
 
-  (spacemacs/toggle-evil-cleverparens-on)
+(spacemacs/toggle-evil-cleverparens-on)
 
-  (global-aggressive-indent-mode 1)
+(global-aggressive-indent-mode 1)
 
-  ;; 把光标下的数字自增或自减
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;; 把光标下的数字自增或自减
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 
-  ;; 显示文件信息
-  (define-key evil-normal-state-map (kbd "C-g") 'evil-show-file-info)
+;; 显示文件信息
+(define-key evil-normal-state-map (kbd "C-g") 'evil-show-file-info)
 
-  (define-key evil-normal-state-map (kbd "C-q") 'evil-visual-block)
+(define-key evil-normal-state-map (kbd "C-q") 'evil-visual-block)
 
-  ;; 上下移动选中的文字
-  (define-key evil-visual-state-map (kbd "C-j")
-    (concat ":m '>+1" (kbd "RET") "gv=gv"))
-  (define-key evil-visual-state-map (kbd "C-k")
-    (concat ":m '<-2" (kbd "RET") "gv=gv"))
+;; 上下移动选中的文字
+(define-key evil-visual-state-map (kbd "C-j")
+  (concat ":m '>+1" (kbd "RET") "gv=gv"))
+(define-key evil-visual-state-map (kbd "C-k")
+  (concat ":m '<-2" (kbd "RET") "gv=gv"))
 
-  ;; 补全文件路径
-  (define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+;; 补全文件路径
+(define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+
+;; fix smex
+(spacemacs/set-leader-keys ":" 'spacemacs/smex)
+(spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
 
   ;; org-mode 
   (setq org-startup-indented t)
@@ -367,7 +381,24 @@ you should place your code here."
   ;; (spacemacs/set-leader-keys (kbd "m :") 'spacemacs/smex-major-mode-commands)
   ;; (global-set-key (kbd "M-x") 'execute-extended-command)
 
+(spacemacs/set-leader-keys
+  "fO" 'dotspacemacs/open-directory-in-external-app 
   )
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (keyfreq youdao-dictionary yapfify yaml-mode xterm-color ws-butler window-numbering which-key wgrep web-mode web-beautify uuidgen use-package toc-org tide tagedit sql-indent solarized-theme smex slim-mode sicp shell-pop scss-mode sass-mode reveal-in-osx-finder restclient restart-emacs ranger rainbow-mode rainbow-identifiers racket-mode quelpa pyvenv pytest pyenv-mode py-isort pug-mode prodigy powerline popwin pip-requirements persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary org-pomodoro org-plus-contrib open-junk-file ob-http mwim multi-term move-text mmm-mode markdown-toc macrostep lua-mode live-py-mode linum-relative link-hint less-css-mode launchctl js2-refactor js-doc ivy-purpose ivy-hydra info+ indent-guide ibuffer-projectile hy-mode hungry-delete htmlize hl-todo hl-anything highlight-parentheses highlight-numbers hide-comnt help-fns+ helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-ag graphviz-dot-mode golden-ratio gnuplot glsl-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist flyspell-correct-ivy flycheck-pos-tip fill-column-indicator expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-matchit evil-magit evil-iedit-state evil-commentary evil-cleverparens evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help engine-mode emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker deft cython-mode counsel company-web company-tern company-statistics company-c-headers company-auctex company-anaconda column-enforce-mode color-identifiers-mode coffee-mode cmake-mode bind-map auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
